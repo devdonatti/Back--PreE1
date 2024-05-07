@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { productManager } from "../index.js";
+import { productManager } from "../src/index.js";
 
 const productsRouter = Router()
 
@@ -7,7 +7,7 @@ const productsRouter = Router()
 productsRouter.get ('/', async (req,res) =>{
     try {
         const {limit} = req.query;
-        const products = productManager.getProducts()
+        const products = await productManager.getProducts()
 
         if (limit) {
             const limitedProducts = product.slice (0,limit)

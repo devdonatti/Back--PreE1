@@ -1,6 +1,10 @@
+import { v4 as uuidv4 } from "uuid";
+import {promises as fs} from 'fs'
+
+
 export class CartManager {
     constructor() {
-        this.path = 'cart.json';
+        this.path = './src/cart.json';
         this.carts = [];
     }
 
@@ -21,7 +25,7 @@ getCartProducts = async (id) => {
 }
 
 newCart = async () => {
-    const id= uuid4()
+    const id= uuidv4()
 
     const newCart = {id,products: []}
 
@@ -33,7 +37,7 @@ newCart = async () => {
 
 addProductToCart = async (cart_id , product_id) => {
     const carts = await this.getCarts()
-    const index = carts.findIndex (cart => cart.id == cart_id)
+    const index = carts.find (cart => cart.id == cart_id)
 
     if (index != -1) {
         const cartProducts = await this.getCartProducts (cart_id)
@@ -44,7 +48,7 @@ addProductToCart = async (cart_id , product_id) => {
         }else {
            cartProducts.push ({product_id,quantity: 1})
         }
-        carts[index.product = cartProducts]
+        carts[index.products = cartProducts]
         await fs.writeFile(this.path,JSON.stringify(carts))
         console.log ('Producto agregado con exito')
 }else {
