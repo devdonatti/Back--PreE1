@@ -25,7 +25,7 @@ productsRouter.get ('/', async (req,res) =>{
 productsRouter.get('/:pid', async (req , res) =>{
     try {
         const {pid} = req.params;
-        const products = productManager.getProductById(pid)
+        const products = await productManager.getProductById(pid)
         res.json (products)
 
     } catch (error) {
